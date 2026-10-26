@@ -1,16 +1,7 @@
-//Document is the DOM can be accessed in the console with document.window.
-// Tree is from the top, html, body, p etc.
-
-//Problem: User interaction does not provide the correct results.
-//Solution: Add interactivity so the user can manage daily tasks.
-//Break things down into smaller steps and take each step at a time.
-
-// Event handling, user interaction is what starts the code execution.
-
 const taskInput = document.getElementById('new-task');
 const addButton = document.getElementsByTagName('button')[0];
-const incompleteTaskHolder = document.getElementById('incompleteTasks');
-const completedTasksHolder = document.getElementById('completed-tasks');
+const todoList = document.getElementById('incompleteTasks');
+const completedList = document.getElementById('completed-tasks');
 
 const createNewTaskElement = function (taskString) {
   const listItem = document.createElement('li');
@@ -49,7 +40,7 @@ const addTask = function () {
   if (!taskInput.value) return;
   const listItem = createNewTaskElement(taskInput.value);
 
-  incompleteTaskHolder.appendChild(listItem);
+  todoList.appendChild(listItem);
   bindTaskEvents(listItem, taskCompleted);
 
   taskInput.value = '';
@@ -87,11 +78,11 @@ const moveTask = function (targetList, nextHandler) {
 };
 
 const taskCompleted = function () {
-  moveTask.call(this, completedTasksHolder, taskIncomplete);
+  moveTask.call(this, completedList, taskIncomplete);
 };
 
 const taskIncomplete = function () {
-  moveTask.call(this, incompleteTaskHolder, taskCompleted);
+  moveTask.call(this, todoList, taskCompleted);
 };
 
 addButton.addEventListener('click', addTask);
@@ -106,10 +97,10 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   checkBox.onchange = checkBoxEventHandler;
 };
 
-Array.from(incompleteTaskHolder.children).forEach((task) => {
+Array.from(todoList.children).forEach((task) => {
   bindTaskEvents(task, taskCompleted);
 });
 
-Array.from(completedTasksHolder.children).forEach((task) => {
+Array.from(completedList.children).forEach((task) => {
   bindTaskEvents(task, taskIncomplete);
 });
