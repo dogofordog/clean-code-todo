@@ -5,6 +5,12 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write ."
   },
+  "lint-staged": {
+    "*.{js,html,css}": [
+      "prettier --check",
+      "eslint"
+    ]
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.13.0",
