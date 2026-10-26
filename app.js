@@ -114,10 +114,10 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   checkBox.onchange = checkBoxEventHandler;
 };
 
-for (let i = 0; i < incompleteTaskHolder.children.length; i++) {
-  bindTaskEvents(incompleteTaskHolder.children[i], taskCompleted);
-}
+Array.from(incompleteTaskHolder.children).forEach((task) => {
+  bindTaskEvents(task, taskCompleted);
+});
 
-for (let i = 0; i < completedTasksHolder.children.length; i++) {
-  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
-}
+Array.from(completedTasksHolder.children).forEach((task) => {
+  bindTaskEvents(task, taskIncomplete);
+});
